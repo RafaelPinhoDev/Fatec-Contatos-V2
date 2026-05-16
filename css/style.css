@@ -1,0 +1,139 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.preview-container {
+    position: relative;
+    width: 80px;  
+    height: 80px; 
+    border: 2px solid #0d6efd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin: 0; 
+    overflow: hidden; /* Força tudo o que estiver dentro a respeitar as bordas arredondadas */
+}
+
+.preview-image {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.preview-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+/* Ajuste na coluna que o JavaScript cria para dar espaçamento entre os cards */
+#lista-contatos > div {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* Estilização do Card */
+#article-contatos .card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    /* ESSENCIAL PARA ALINHAR BOTÕES */
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+    min-height: 520px; /* Altura mínima para manter padrão */
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagem */
+.card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* Título e ID */
+.titulo-card {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.id-pequeno {
+    font-size: 0.85rem;
+    background-color: #212529;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Container de Informações - O segredo do alinhamento */
+.info-container {
+    flex-grow: 1; /* Isso faz esse bloco ocupar todo o espaço vazio */
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+/* Rodapé de Botões com o mesmo respiro lateral amplo */
+.btn-group-custom {
+    padding: 0 28px 24px 28px; /* Sincronizado em 28px nas laterais */
+    display: flex;
+    flex-direction: column;    
+    gap: 8px;                  
+    width: 100%;
+}
+
+.btn-group-custom .btn {
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.95rem;
+    padding: 10px;             /* Botão ligeiramente mais alto para destacar bem */
+    border-radius: 8px;
+    margin-top: 0 !important;  
+}
+#article-contatos {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#article-contatos:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
