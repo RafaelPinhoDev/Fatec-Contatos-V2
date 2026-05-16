@@ -1,6 +1,6 @@
 'use strict'
 
-import { preview } from "./preview.js"
+import { preview, uploadImagem } from "./preview.js"
 import { getContatos, criarContato, atualizarContato, deletarContato } from "./contatos.js"
 
 
@@ -75,6 +75,7 @@ function criarEstruturaContato(contato) {
 }
 
 
+
 async function carregarContatos() {
 
     const listaContatosEstrutura = document.getElementById('lista-contatos')
@@ -96,9 +97,14 @@ async function carregarContatos() {
 
 }
 
+
+
+
+
 async function buscarContato(){
     const listaContatosEstrutura = document.getElementById('lista-contatos')
     if (!listaContatosEstrutura) return
+    
     const buscaContato = document.getElementById('input-contato').value.toLowerCase()
     const btnPesquisar = document.getElementById('botao-pesquisar')
 
@@ -115,10 +121,12 @@ async function buscarContato(){
         listaContatosEstrutura.replaceChildren()
 
         if (contatoDesejado == ""){
+
             const semContatoTexto = document.createElement('p')
             semContatoTexto.textContent = `Nenhum Contato Encontrado com o nome: ${buscaContato}`
             semContatoTexto.classList.add('text-center', 'text-muted', 'fw-bold', 'mt-3')
             listaContatosEstrutura.appendChild(semContatoTexto)
+
         }else{
             contatoDesejado.forEach(contato => {
                 criarEstruturaContato(contato)
@@ -130,17 +138,48 @@ async function buscarContato(){
     }
 }
 
-async function formCadastro(evento) {
+async function cadastrarContato(evento) {
 
+    // Impede que o form resete
     evento.preventDefault()
     const id = document.getElementById('id').value
 
+    // Envia a imagem pro cloudinary e pega a url
+    const urlFoto = await uploadImagem()
+
+    // Guarda as informações
+    const contatos = {
+
+        id: id,
+        nome:  document.getElementById('nome').value, 
+        celular: document.getElementById('celular').value,
+        email: document.getElementById('email').value,
+        endereco: document.getElementById('endereco').value,
+        cidade: document.getElementById('cidade').value,
+        foto: urlFoto
+
+    }
+
+    // Envia as informações para o render
+    try{
+        await criarContato(contatos)
+
+        alert("Contato cadastrado com sucesso!")
+
+        carregarContatos()
+    }catch(erro){
+        console.error("Erro ao cadastrar contato: " + erro.message)
+        alert("Erro ao cadastrar contato: " + erro.message)
+    }
 
 
 }
 
+// Pesquisar contatos 
 const btnPesquisar = document.getElementById('botao-pesquisar').addEventListener('click', buscarContato)
 
 // Carrega todos os contatos
 document.addEventListener('DOMContentLoaded', carregarContatos)
+
+document.getElementById('form-cadastro').addEventListener('submit', cadastrarContato)
 
